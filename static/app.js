@@ -68,7 +68,7 @@ function renderList(entries){
     list.innerHTML = ''; // Clear the old list before adding new items (important for search)
     // If the list is empty (search found nothing), show a message
     if (entries.length === 0){
-        list.innerHTML = '<p style="text-align:center; color: #666;">No entries found.</p>';
+        list.innerHTML = '<p style="text-align:center; color: var(--text-muted);">No entries found.</p>';
         return;
     }
     entries.forEach(entry => {
@@ -93,23 +93,22 @@ function renderList(entries){
         // 2. Create a prettier card
         // We use <strong> to make labels bold
         li.innerHTML= `
-            <div style="font-size: 0.8em; color: #888; margin-bottom: 5px;">
-                ${dateString}
-                ${anomalyLabel ? `<span class="anomaly-badge">${anomalyLabel}</span>` : ''}
-
-                <button onclick="deleteEntry(${entry.id})" style="float: right; background: none; border: none; cursor: pointer; font-size: 1.2em;">
-                🗑️
-                </button>
-                <button onclick="enableEditMode(${entry.id}, '${safeContent}', ${entry.mood})"
-                    style="float: right"; cursor: pointer; border: none; background: none; margin-right: 10px;">
-                ✏️
-                </button>
+            <div style="display: flex; justify-content: space-between; font-size: 0.85em; color: var(--text-muted); margin-bottom: 8px;">
+                <span>${dateString} ${anomalyLabel ? `<span class="anomaly-badge">${anomalyLabel}</span>` : ''}</span>
+                
+                <div>
+                    <button onclick="enableEditMode(${entry.id}, '${safeContent}', ${entry.mood})" 
+                        style="background: none; border: none; cursor: pointer; margin-right: 5px; opacity: 0.7;">✏️</button>
+                    <button onclick="deleteEntry(${entry.id})" 
+                        style="background: none; border: none; cursor: pointer; opacity: 0.7;">🗑️</button>
+                </div>
             </div>
+            
             <div id="view-mode-${entry.id}">
-            <strong>Mood:</strong> ${entry.mood} | 
-            <strong>AI:</strong> ${entry.sentiment.toFixed(2)}
-            <p style="margin-top: 5px;">${entry.content}</p>
-
+                <div style="margin-bottom: 5px; font-weight: bold; color: var(--accent);">
+                    Mood: ${entry.mood} <span style="color: var(--text-muted); font-weight: normal; font-size: 0.9em;">| AI: ${entry.sentiment.toFixed(2)}</span>
+                </div>
+                <p style="line-height: 1.5; color: var(--text-main);">${entry.content}</p>
             </div> `;    
 
         // Set the text inside it
@@ -133,8 +132,8 @@ function renderChart(entries) {
     if (myChart) {
         myChart.destroy();
     }
-    Chart.defaults.color = '#ffffff';     // Makes text white
-    Chart.defaults.borderColor = '#444444'; // Makes grid lines grey
+    Chart.defaults.color = '#94a3b8';     // Muted Text
+    Chart.defaults.borderColor = '#334155'; // Slate Grid
 
     // 3. Create the New Chart
     myChart = new Chart(ctx, {
@@ -145,18 +144,22 @@ function renderChart(entries) {
                 {
                     label: 'My Mood (1-10)',
                     data: userMoods,
-                    borderColor: 'blue',
+                    borderColor: '#6366f1', // Indigo
+                    tension: 0.4, // Smooth curves
                     yAxisID: 'y', // Uses Left Axis
                 },
                 {
                     label: 'AI Sentiment (-1 to 1)',
                     data: aiScores,
-                    borderColor: 'red',
+                    borderColor: '#22c55e',
+                    tension: 0.4,
                     yAxisID: 'y1', // Uses Right Axis
                 }
             ]
         },
         options: {
+            responsive: true,
+            maintainAspectRatio: false,
             scales: {
                 y: {
                     type: 'linear',
@@ -268,7 +271,7 @@ searchInput.addEventListener('input' , (e) => {
     renderChart(filteredEntries); // Update the graph lines
     updateStats(filteredEntries); // Update the dashboard numbers
 });
-loadEntries();
+
 
 // AI THERAPIST LOGIC
 
@@ -303,7 +306,7 @@ analyzeBtn.addEventListener('click', async() => {
     }
 
     // 6. Reset the button
-    analyzeBtn.innerText = "Analyze My Week";
+    analyzeBtn.innerText = "✨ Analyze Week";
     analyzeBtn.disabled = false;
 });
 
@@ -345,7 +348,6 @@ async function saveEdit(id) {
         return;
     }
 
-
     try {
         // 3. Send the data to Python
         // We use method: 'PUT' because we are updating
@@ -373,7 +375,7 @@ async function saveEdit(id) {
     // 1. Remove the edit form (Destroy the inputs)
     document.getElementById(`edit-mode-${id}`).remove();
 
-    // 2. SHow the original text again
+    // 2. Show the original text again
     document.getElementById(`view-mode-${id}`).style.display = 'block';
   }
 function enableEditMode(id, encodedContent, currentMood) {
@@ -399,19 +401,22 @@ function enableEditMode(id, encodedContent, currentMood) {
     // 6. Fill the form with HTML
     // We set the 'value' of the inputs to match the current data
     editForm.innerHTML = `
-    <div style="margin-top: 10px;">
-    <label>Mood:</label>
-    <input type="number" id="edit-mood-${id}" value="${currentMood}" min="1" max="10" style="width: 50px;">
-    </div>
-    <textarea id="edit-content-${id}" style="width: 95%; height: 60px; margin-top: 5px;">${content}</textarea>
+    <div style="margin-top: 10px; background: var(--bg-input); padding: 10px; border-radius: 8px;">
+        <div style="margin-bottom: 5px;">
+            <label style="color: var(--text-muted); font-size: 0.9em;">Mood:</label>
+            <input type="number" id="edit-mood-${id}" value="${currentMood}" min="1" max="10" style="width: 60px;">
+        </div>
+        <textarea id="edit-content-${id}" style="width: 100%; height: 80px; margin-top: 5px;">${content}</textarea>
 
-    <div style="margin-top: 5px; text-align: right">
-    <button onclick="cancelEdit(${id})" style="margin-right: 5px;">Cancel</button>
-    <button onclick="saveEdit(${id})" style="background-color: #4CAF50; color:white; border:none; padding: 5px 10px; cursor: pointer;">Save</button>
+        <div style="margin-top: 10px; text-align: right">
+            <button onclick="cancelEdit(${id})" style="background: transparent; border: 1px solid var(--text-muted); padding: 5px 10px; border-radius: 6px; color: var(--text-muted); cursor: pointer; margin-right: 5px;">Cancel</button>
+            <button onclick="saveEdit(${id})" style="background-color: var(--success); color:white; border:none; padding: 5px 15px; border-radius: 6px; cursor: pointer;">Save</button>
+        </div>
     </div>
     `;
 
     // 7. Inject the form into the card
     li.appendChild(editForm);
 }   
-  
+// Initial Load 
+loadEntries();

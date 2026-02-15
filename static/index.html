@@ -3,69 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Insight Journal</title>  
+    <title>Insight Journal</title>
     <link rel="stylesheet" href="/static/style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>  
+</head>
 <body>
 
-    <h1>Welcome to Insight Journal</h1>
-    <p>Your personal journal application.</p>
-
-    <div id="entry-form">
-        <h2>Create New Entry</h2>
-        
-        <textarea id="journal-text" placeholder="How was your day?" rows="5" cols="40"></textarea>
-        
-        <br><br> <label for="mood-score">Mood (1-10): </label>
-    
-        <input type="number" id="mood-score" name="mood-score" min="1" max="10">
-
-        <br><br>
-
-        <button id="save-btn">Save Entry</button>
-
-        <p id="save-status"></p>
-        
-    </div>
-
-    <div id="history-section">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-            <h2>Journal Entries</h2>
-            <button id="export-btn" style="width: auto; background-color: #2d2d2d; border: 1px solid #555;">Export Data</button>
+    <aside>
+        <div>
+            <div class="brand">InsightJournal</div>
+            <nav>
+                <a href="#" class="nav-item active">
+                    <span>📊</span> Dashboard
+                </a>
+                <button id="export-btn" class="nav-item">
+                    <span>⬇️</span> Export Data
+                </button>
+                <button onclick="alert('Settings coming soon!')" class="nav-item">
+                    <span>⚙️</span> Settings
+                </button>
+            </nav>
         </div>
-    
-        <input type="text" id="search-bar" placeholder="🔍 Search Entries..."
-               style="width: 100%; box-sizing: border-box; margin-bottom: 20px; padding: 12px;">
 
-        <div id="stats-dashboard">
+        <div class="user-profile">
+            <div class="avatar"></div>
+            <div style="font-size: 0.9rem;">
+                <div style="font-weight: bold;">User Account</div>
+                <div style="color: var(--success); font-size: 0.8rem;">● Online</div>
+            </div>
+        </div>
+    </aside>
+
+    <main>
+        
+        <div class="header-container">
+            <div>
+                <h1>Welcome to InsightJournal</h1>
+                <p class="subtitle">Here is your daily overview.</p>
+            </div>
+            <input type="text" id="search-bar" placeholder="🔍 Search Entries..." 
+                   style="background: #0f172a; border: 1px solid #334155; padding:12px; border-radius:50px; color:white; width: 300px;">
+        </div>
+
+        <div class="stats-dashboard">
             <div class="stat-card">
                 <div class="stat-title">Total Entries</div>
                 <div class="stat-value" id="stat-total">0</div>
             </div>
             <div class="stat-card">
-                <div class="stat-title">Avg Mood (User)</div>
+                <div class="stat-title">Avg Mood</div>
                 <div class="stat-value" id="stat-mood">0.0</div>
             </div>
             <div class="stat-card">
-                <div class="stat-title">Avg Sentiment (AI)</div>
+                <div class="stat-title">AI Score</div>
                 <div class="stat-value" id="stat-ai">0.0</div>
             </div>
+            <div class="stat-card" style="padding: 0; border: none; overflow: hidden; display: flex;">
+                <button id="analyze-btn" class="primary-btn" style="width: 100%; height: 100%; border-radius: var(--radius); font-size: 1.1rem;">
+                    ✨ Analyze Week
+                </button>
+            </div>
         </div>
-        <div id="ai-section" style="margin: 30px 0; padding: 20px; background-color: #1e1e1e ; border-radius: 12px; border:1px solid #333;">
-            <div style="display: flex; justify-content: space-bewteen; align-items: center ;"></div>
-                <h3 style="margin: 0; color: #bb86fc;">AI Insights</h3>
-                <button id="analyze-btn" style="background-color: #bb86fc; color: #000; font-weight: bold" ;>Analyze My Week</button> 
-             </div>
-            <p id="ai-advice" style="margin-top: 15px; line-height: 1.6; color: #ddd ; display: none;"></p> 
+
+        <p id="ai-advice" style="display: none; background: linear-gradient(135deg, #312e81, #4c1d95); padding: 20px; border-radius: var(--radius); color: #e0e7ff; line-height: 1.6; border: 1px solid #6366f1; box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);"></p>
+
+        <div class="input-card">
+            <textarea id="journal-text" placeholder="What's on your mind today?"></textarea>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <label style="color: var(--text-muted);">Mood (1-10):</label>
+                    <input type="number" id="mood-score" value="5" min="1" max="10" 
+                           style="background: var(--bg-body); border:1px solid #475569; padding: 8px; border-radius: 8px; color: white; width: 50px; text-align: center;">
+                </div>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <span id="save-status" style="font-size: 0.9rem;"></span>
+                    <button id="save-btn" class="primary-btn">Save Entry</button>
+                </div>
+            </div>
         </div>
-        <div style="width: 100%; max-width: 600px; margin: 20px auto;">
-            <canvas id="moodChart"></canvas>
+
+        <div class="split-view">
+            
+            <div class="chart-wrapper">
+                 <canvas id="moodChart"></canvas>
+            </div>
+            
+            <div class="list-wrapper">
+                <h3 style="margin-bottom: 1rem; color: var(--text-muted); position: sticky; top: 0; background: var(--bg-body); padding-bottom: 10px; z-index: 10;">
+                    Recent History
+                </h3>
+                <ul id="entries-list"></ul>
+            </div>
         </div>
-        
-        <ul id="entries-list"></ul>
-    </div>
+
+    </main>
 
     <script src="/static/app.js"></script>
-</body>    
+</body>
 </html>
