@@ -180,7 +180,7 @@ button.primary-btn:hover { background-color: var(--accent-hover); }
 .score-yellow { color: var(--warning); }
 .score-red { color: var(--danger); }
 .anomaly-card { border-left-color: var(--warning) !important; background: rgba(245, 158, 11, 0.05); }
-.anomaly-badge { background: var(--warning); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; margin-left: 8px; }
+.anomaly-badge { background: var(--warning); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; margin-left: 8px; text-transform: uppercase;}
 
 /* =========================================
    MOBILE & RESPONSIVE DESIGN
