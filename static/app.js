@@ -115,7 +115,7 @@ function renderList(entries){
         // We use .toFixed(2) to round values to 2 decimal places for better readability.
 
         // Add it to the list
-        list.appendChild(li);
+        list.prepend(li);
     });
 }
 
