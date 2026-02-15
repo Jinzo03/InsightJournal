@@ -26,7 +26,7 @@ body {
     color: var(--text-main);
     height: 100vh;
     display: grid;
-    /* Desktop Layout: Fixed Sidebar | Fluid Content */
+    /* Desktop Layout: Sidebar | Fluid Content */
     grid-template-columns: 260px 1fr; 
     grid-template-rows: 100vh;
     overflow: hidden; 
@@ -52,7 +52,7 @@ aside {
     -webkit-text-fill-color: transparent;
 }
 
-/* --- UNIFIED NAV BUTTONS (The Fix) --- */
+/* --- UNIFIED NAV BUTTONS  --- */
 .nav-item {
     display: flex;
     align-items: center;
@@ -88,8 +88,9 @@ aside {
     gap: 12px;
     padding-top: 20px;
     border-top: 1px solid #334155;
+    
 }
-.avatar { width: 40px; height: 40px; background: linear-gradient(135deg, #6366f1, #ec4899); border-radius: 50%; }
+.avatar { width: 40px; height: 40px; background: linear-gradient(135deg, #6366f1, #ec4899); border-radius: 50%;}
 
 /* --- MAIN CONTENT --- */
 main {
