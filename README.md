@@ -32,7 +32,6 @@ Follow these steps to run the project locally.
 ```bash
 git clone [https://github.com/YOUR_USERNAME/insight-journal.git](https://github.com/YOUR_USERNAME/insight-journal.git)
 cd insight-journal 
-$exit
 ```
 ### 2. Create a Virtual Environment
 It's recommended to use a virtual environment to keep dependencies clean.
