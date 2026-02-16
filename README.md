@@ -2,7 +2,7 @@
 
 A modern, AI-powered personal journaling application built with **FastAPI** and **Vanilla JS**. Insight Journal allows users to track their daily thoughts, monitor mood trends, and visualize their emotional journey through an interactive dashboard.
 
-![Dashboard Screenshot]("C:\Users\iyedd\OneDrive\Pictures\Screenshots\Screenshot (102).png")
+![Dashboard Screenshot](screenshots/Screenshot_(102).png)
 
 ## 🚀 Features
 
