@@ -58,7 +58,7 @@ uvicorn main:app --reload
 The application will be available at ```
 http://127.0.0.1:8000. ```
 
-### Usage
+## Usage
 * **Dashboard:** View your "Average Mood" and "AI Score" at a glance.
 
 * **Write:** Type your entry in the main text area, select a mood score (1-10), and hit Save.
@@ -69,7 +69,7 @@ http://127.0.0.1:8000. ```
 
 * **Search:** Use the search bar to filter through past memories instantly.
 
-### Project Structure
+## Project Structure
 ```bash
 📂 insight-journal
 ├── 📂 static
@@ -81,12 +81,12 @@ http://127.0.0.1:8000. ```
 ├── requirements.txt  # Python Dependencies
 └── README.md         # Project Documentation
 ```
-### Future Improvements
+## Future Improvements
 * [ ] Integration with a persistent database (SQLite/PostgreSQL).
 
 * [ ] User Authentication (Login/Register).
 
 * [ ] Advanced AI Sentiment Analysis using NLP.
 
-### License
+## License
 This project is open-source and available under the MIT License.
