@@ -71,13 +71,16 @@ http://127.0.0.1:8000. ```
 
 ## Project Structure
 ```bash
-📂 insight-journal
+📂 InsightJournal
 ├── 📂 static
 │   ├── app.js        # Frontend Logic (API calls, UI updates)
-│   └── style.css     # Responsive Styling
-├── 📂 templates
+│   ├── style.css     # Responsive Styling
 │   └── index.html    # Main Dashboard UI
-├── main.py           # FastAPI Backend & Routes
+├──📂 app
+│   ├── main.py       # FastAPI Backend & Routes                   
+│   ├── models.py     # Setting the database structure
+│   └── database.py   # Creating the database
+├── 📂 venv           
 ├── requirements.txt  # Python Dependencies
 └── README.md         # Project Documentation
 ```
