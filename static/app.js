@@ -1,4 +1,4 @@
-let allEntries =[]; //This hols all the data to be filtered later
+let allEntries =[]; //This holds all the data to be filtered later
 let myChart = null; // Variable to store the chart instance
 // Select the elements
 // We use'document.getElementById' to find the HTML tags we created in index.html
