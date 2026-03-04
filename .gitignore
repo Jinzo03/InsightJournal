@@ -4,4 +4,4 @@ venv/
 .env
 .DS_Store
 instance/
-requirements.txt
+journal.db
