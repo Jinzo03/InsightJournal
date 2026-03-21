@@ -6,3 +6,4 @@ venv/
 instance/
 journal.db
 screenshots/
+venv/
