@@ -5,5 +5,8 @@ venv/
 .DS_Store
 instance/
 journal.db
-
+venv/
+screenshots/
+Lib/
+Scripts/
 
