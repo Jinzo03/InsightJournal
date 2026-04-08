@@ -6,7 +6,7 @@ venv/
 instance/
 journal.db
 /venv
-/screenshots
+screenshots
 Lib/
 Scripts/
 
